@@ -1,0 +1,35 @@
+#### Home Page
+- **Route**: `/`
+- **Components**: 
+  - Header
+  - Hero Section (Job search bar, featured jobs)
+  - Categories Section
+  - Featured Companies
+  - Footer
+
+#### Job Listing Page
+- **Route**: `/jobs`
+- **Components**: 
+  - Navbar
+  - Search and Filter Bar
+  - Job List (Infinite Scroll)
+  - Job Description for every job
+
+#### Job Detail Page
+- **Route**: `/jobs/[id]`
+- **Components**: 
+  - Header
+  - Job Details (Description, Requirements, Company Info)
+  - Apply Button/Form
+  - Footer
+
+#### User Profile Page
+- **Route**: `/profile`
+- **Components**: 
+  - Header
+  - Profile Info
+  - Resume and Portfolio Section
+  - Applied Jobs List
+  - Footer
+
+By using these tools and following a structured workflow, you can create a well-organized and visually appealing design for your job posting application. This approach will help you and your team stay aligned and ensure a smoother development process.
