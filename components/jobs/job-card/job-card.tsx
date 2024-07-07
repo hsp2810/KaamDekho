@@ -30,7 +30,7 @@ export function JobCard() {
             <JobCardTag title='From $35 an hour' />
             <JobCardTag title='Part-time' />
           </div>
-          <ul className='leading-tighter text-zinc-600 text-sm'>
+          <ul className='leading-tighter text-zinc-600 text-sm dark:text-slate-500'>
             <li>
               • Provide leadership, expertise and creative solutions for UI and
               UX design, while following corporate strategies.

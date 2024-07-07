@@ -14,7 +14,7 @@ export default function AvatarProvider({
   className,
 }: AvatarProviderProps) {
   return (
-    <Avatar className={`${className} bg-primary text-white`}>
+    <Avatar className={`${className} bg-primary text-white dark:bg-secondary`}>
       <AvatarImage src={url} />
       <AvatarFallback className='bg-inherit'>{fallback}</AvatarFallback>
     </Avatar>

@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  username     String   @unique
+  imageUrl     String?  @db.Text
+  email        String   @unique
+  password     String
+  User_type    UserType @default(JOBSEEKER)
+  skills       String[]
+  experience   String?
+  socials      Json[]
+  isOpenToWork Boolean? @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  applied_jobs Job[]    @relation("applied_jobs")
+  saved_jobs   Job[]    @relation("saved_jobs")
+}
+
+model Company {
+  id             String   @id @default(cuid())
+  name           String
+  about          String?
+  country        String
+  industries     String[]
+  ratings        Float    @default(0)
+  website_url    String?
+  linkedin_url   String?
+  User_photo_url String?
+  jobs           Job[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Job {
+  id                String          @id @default(cuid())
+  title             String
+  company           Company[]
+  recruiter         String?
+  job_type          JobType
+  job_location_type JobLocationType
+  salary_range      String?
+  salary_type       SalaryType?
+  location          String?
+  skills            String[]
+
+  description        String
+  responsibilities   String?
+  qualifications     String?
+  footer_message     String?
+  skills_description String?
+
+  appliedBy User[] @relation("applied_jobs")
+  savedBy   User[] @relation("saved_jobs")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserType {
+  RECRUITER
+  JOBSEEKER
+}
+
+enum JobType {
+  SELF_EMPLOYED
+  CONTRACT
+  FREELANCE
+  PART_TIME
+  FULL_TIME
+}
+
+enum JobLocationType {
+  REMOTE
+  ONSITE
+  HYBRID
+}
+
+enum SalaryType {
+  HOURLY
+  ANNUALLY
+}

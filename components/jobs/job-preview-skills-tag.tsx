@@ -20,7 +20,10 @@ export default function JobPreviewSkillsTag({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <Badge variant={variant} className='rounded-lg px-3 py-1 font-normal'>
+          <Badge
+            variant={variant}
+            className='rounded-lg px-3 py-1 text-xs font-light tracking-normal'
+          >
             {skill}
           </Badge>
         </TooltipTrigger>

@@ -13,7 +13,7 @@ import JobPreviewEmployerCard from "./job-preview-employer-card";
 export default function JobPreviewCard() {
   return (
     <Card className='hidden md:block w-[700px] group'>
-      <CardHeader className='bg-zinc-100'>
+      <CardHeader className='bg-zinc-100  dark:bg-slate-900'>
         <CardTitle className='font-bold text-3xl'>Frontend Developer</CardTitle>
         <CardDescription className='flex flex-col gap-1'>
           <div className='flex gap-1'>
@@ -24,8 +24,10 @@ export default function JobPreviewCard() {
           </div>
 
           <div className='flex gap-1'>
-            <span className='text-black'>$60,000 - $80,000 a year</span>•
-            <span>Part-time</span>
+            <span className='text-black dark:text-white'>
+              $60,000 - $80,000 a year
+            </span>
+            •<span>Part-time</span>
           </div>
 
           <div className='flex gap-1'>

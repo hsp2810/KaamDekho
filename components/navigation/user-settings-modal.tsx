@@ -10,26 +10,32 @@ import {
 import AvatarProvider from "../providers/avatar-provider";
 import Link from "next/link";
 import { BookMarked, LogOut, Settings, User } from "lucide-react";
-import { User as ClerkUser } from "@clerk/nextjs/server";
-import { SignOutButton } from "@clerk/nextjs";
+import { useTransition } from "react";
+import { actionLogout } from "@/actions/auth";
+import { Icons } from "@/lib/icons";
 
 const user = {
   fullName: "Harshit Patel",
   email: "hsp123@gmail.com",
 };
 
-interface UserSettingsModalProps {
-  user?: any;
-}
-
 export default function UserSettingsModal() {
+  const [isPending, startTransition] = useTransition();
+
+  const handleLogout = (e: any) => {
+    e.preventDefault();
+    localStorage.clear();
+    startTransition(async () => {
+      await actionLogout();
+    });
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <AvatarProvider url='/avatars/01.png' fallback='HP' />
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className='bg-white' align='end'>
+      <DropdownMenuContent className='dark:bg-popover' align='end'>
         <div className='flex items-center justify-start gap-2 p-2'>
           <div className='flex flex-col space-y-1 leading-none'>
             {user.fullName && <p className='font-medium'>{user.fullName}</p>}
@@ -74,11 +80,19 @@ export default function UserSettingsModal() {
           className='cursor-pointer'
           style={{ backgroundColor: "crimson", color: "white" }}
         >
-          <SignOutButton>
-            <button className='flex justify-center items-center w-full'>
-              <LogOut className='h-4 w-4 mr-1' /> Sign out
-            </button>
-          </SignOutButton>
+          <button
+            className='flex justify-center items-center w-full'
+            onClick={handleLogout}
+            disabled={isPending}
+          >
+            {isPending ? (
+              <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
+            ) : (
+              <>
+                <LogOut className='h-4 w-4 mr-1' /> Sign out
+              </>
+            )}
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

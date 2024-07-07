@@ -32,7 +32,7 @@ export default function JobPreviewEmployerCard() {
           </div>
           <Button>
             <Mail className='h-4 w-4 mr-1' />
-            Send an Email
+            <span className='hidden md:block'>Send an Email</span>
           </Button>
         </div>
       </CardContent>
