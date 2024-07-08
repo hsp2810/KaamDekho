@@ -4,7 +4,7 @@ import React from "react";
 
 export default function CompanyPostingsTag() {
   return (
-    <Card className='flex items-center p-3 gap-5 w-fit justify-between bg-primary text-white'>
+    <Card className='flex items-center p-3 gap-5 w-fit justify-between bg-primary dark:bg-popover text-white'>
       <div className='flex flex-col'>
         <h1 className='text-lg p-0 font-semibold '>Frontend Developer</h1>
         <div className='flex gap-2'>
@@ -13,7 +13,7 @@ export default function CompanyPostingsTag() {
           <p className='text-xs'></p>
         </div>
       </div>
-      <Button className='p-1 text-primary' size={"sm"} variant={"outline"}>
+      <Button className='p-2 text-primary' size={"sm"} variant={"outline"}>
         View
       </Button>
     </Card>

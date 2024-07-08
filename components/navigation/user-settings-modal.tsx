@@ -11,7 +11,7 @@ import AvatarProvider from "../providers/avatar-provider";
 import Link from "next/link";
 import { BookMarked, LogOut, Settings, User } from "lucide-react";
 import { useTransition } from "react";
-import { actionLogout } from "@/actions/auth";
+import { signOut } from "next-auth/react";
 import { Icons } from "@/lib/icons";
 
 const user = {
@@ -26,7 +26,7 @@ export default function UserSettingsModal() {
     e.preventDefault();
     localStorage.clear();
     startTransition(async () => {
-      await actionLogout();
+      signOut();
     });
   };
   return (

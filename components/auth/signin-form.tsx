@@ -16,10 +16,11 @@ import {
 import { loginSchema } from "@/lib/validators/auth";
 import { Input } from "@/components/ui/input";
 import { useState, useTransition } from "react";
-import { signIn } from "@/auth";
+// import { signIn } from "@/auth";
 import { actionLogin } from "@/actions/auth";
 import { Icons } from "@/lib/icons";
 import FormError from "./form-error";
+import { signIn } from "next-auth/react";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -42,11 +43,8 @@ export default function SigninForm() {
     setError("");
 
     startTransition(() => {
-      actionLogin(data).then((data) => {
-        if (data) {
-          setError(data.error);
-        }
-      });
+      const { email, password } = data;
+      signIn("credentials", { email, password, redirectTo: "/dashboard" });
     });
   }
 

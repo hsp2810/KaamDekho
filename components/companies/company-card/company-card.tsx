@@ -42,8 +42,8 @@ export default function CompanyCard() {
         </div>
       </CardHeader>
       <CardContent>
-        <h1 className='my-1 font-semibold text-lg'>Company Postings (10)</h1>
-        <div className='flex md:space-x-4 items-center flex-wrap text-sm text-muted-foreground'>
+        <h1 className='my-3 font-semibold text-lg'>Company Postings (10)</h1>
+        <div className='flex space-y-2 md:space-y-0 md:space-x-4 items-center flex-wrap text-sm text-muted-foreground'>
           <CompanyPostingsTag />
           <CompanyPostingsTag />
           <CompanyPostingsTag />

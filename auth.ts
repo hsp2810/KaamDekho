@@ -1,45 +1,56 @@
-import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
-import { db } from "./lib/prisma";
+import NextAuth, { type DefaultSession } from "next-auth";
+import authConfig from "./auth.config";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { loginSchema } from "./lib/validators/auth";
+import { db } from "@/lib/prisma";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(db),
-  providers: [
-    Credentials({
-      credentials: {
-        email: {},
-        password: {},
-      },
-      authorize: async (credentials) => {
-        let user = null;
+declare module "next-auth" {
+  interface Session {
+    user: DefaultSession["user"] & {
+      id: string;
+      username: string | null;
+      email: string | null;
+      image: string | null;
+      name: string | null;
+      password: string | null;
+    };
+  }
+}
 
-        const { email, password } = await loginSchema.parseAsync(credentials);
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth({
+  pages: {
+    signIn: "/auth/sign-in",
+    error: "/auth-error",
+  },
 
-        const pwHash = await bcrypt.hash(password, 10);
-
-        user = await db.user.findUnique({
-          where: { email },
-        });
-
-        if (!user || !user.password) {
-          return null;
-        }
-
-        const isPasswordsSame = bcrypt.compare(user.password, pwHash);
-        if (!isPasswordsSame) {
-          return null;
-        }
-
-        return user;
-      },
-    }),
-  ],
   callbacks: {
-    authorized: async ({ auth }) => {
-      return !!auth;
+    async session({ token, session }) {
+      if (token.sub && session.user && token.role) {
+        session.user.id = token.sub;
+        session.user.username = token.username as string;
+        session.user.name = token.name as string;
+        session.user.password = token.password as string;
+      }
+
+      return session;
+    },
+    async jwt({ token }) {
+      if (!token.sub) return token;
+      const existingUser = await db.user.findUnique({
+        where: { id: token.sub },
+      });
+      if (!existingUser) return token;
+      token.username = existingUser.username;
+      token.password = existingUser.password;
+      token.name = existingUser.name;
+      return token;
     },
   },
+  adapter: PrismaAdapter(db),
+  session: { strategy: "jwt" },
+  ...authConfig,
 });
