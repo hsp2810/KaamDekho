@@ -14,37 +14,45 @@ model User {
   imageUrl     String?  @db.Text
   email        String   @unique
   password     String
-  User_type    UserType @default(JOBSEEKER)
+  user_type    UserType @default(JOBSEEKER)
   skills       String[]
   experience   String?
   socials      Json[]
   isOpenToWork Boolean? @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
   applied_jobs Job[]    @relation("applied_jobs")
   saved_jobs   Job[]    @relation("saved_jobs")
+
+  // Recruiter
+  posted_jobs Job[]
+  Company     Company? @relation(fields: [companyId], references: [id])
+  companyId   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Company {
-  id             String   @id @default(cuid())
+  id             String  @id @default(cuid())
   name           String
   about          String?
   country        String
-  industries     String[]
-  ratings        Float    @default(0)
+  industry       String
+  ratings        Float   @default(0)
   website_url    String?
-  linkedin_url   String?
   User_photo_url String?
   jobs           Job[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  recruiters     User[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Job {
   id                String          @id @default(cuid())
   title             String
   company           Company[]
-  recruiter         String?
+  recruiter         User            @relation(fields: [recruiterId], references: [id])
+  recruiterId       String
   job_type          JobType
   job_location_type JobLocationType
   salary_range      String?
@@ -52,7 +60,7 @@ model Job {
   location          String?
   skills            String[]
 
-  description        String
+  description        String[]
   responsibilities   String?
   qualifications     String?
   footer_message     String?

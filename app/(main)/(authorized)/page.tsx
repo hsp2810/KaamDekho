@@ -1,5 +1,6 @@
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -15,7 +16,8 @@ export default function LandingPage() {
           className={cn(buttonVariants({ size: "lg" }), "mt-5 text-md")}
           href={"/auth/sign-in"}
         >
-          Start using KaamDekho
+          Start using KaamDekho{" "}
+          <ArrowRight className='animate-bounce-horizontal ml-1 h-5 w-5' />
         </Link>
       </div>
     </main>

@@ -28,8 +28,10 @@ export default function JobPage() {
           </div>
 
           <div className='flex gap-1'>
-            <span className='text-black'>$60,000 - $80,000 a year</span>•
-            <span>Part-time</span>
+            <span className='text-black dark:text-white'>
+              $60,000 - $80,000 a year
+            </span>
+            •<span>Part-time</span>
           </div>
 
           <div className='flex gap-1'>

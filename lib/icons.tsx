@@ -28,6 +28,201 @@ export const Icons = {
       />
     </svg>
   ),
+  addedPosts: (props: IconProps) => (
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' {...props}>
+      <rect width='256' height='256' fill='none' />
+      <line
+        x1='48'
+        y1='64'
+        x2='208'
+        y2='64'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='48'
+        y1='128'
+        x2='208'
+        y2='128'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='48'
+        y1='192'
+        x2='208'
+        y2='192'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+    </svg>
+  ),
+  addPost: (props: IconProps) => (
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' {...props}>
+      <rect width='256' height='256' fill='none' />
+      <line
+        x1='128'
+        y1='40'
+        x2='128'
+        y2='216'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='40'
+        y1='128'
+        x2='216'
+        y2='128'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+    </svg>
+  ),
+  messages: (props: IconProps) => (
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' {...props}>
+      <rect width='256' height='256' fill='none' />
+      <path
+        d='M224 56H32a16 16 0 00-16 16v112a16 16 0 0016 16h192a16 16 0 0016-16V72a16 16 0 00-16-16z'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <polyline
+        points='224 72 128 144 32 72'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+    </svg>
+  ),
+  dashboard: (props: IconProps) => (
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' {...props}>
+      <rect width='256' height='256' fill='none' />
+      <line
+        x1='40'
+        y1='216'
+        x2='40'
+        y2='136'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='104'
+        y1='216'
+        x2='104'
+        y2='104'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='168'
+        y1='216'
+        x2='168'
+        y2='72'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='232'
+        y1='216'
+        x2='232'
+        y2='40'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+    </svg>
+  ),
+  registerCompanyIcon: (props: IconProps) => (
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' {...props}>
+      <rect width='256' height='256' fill='none' />
+      <rect
+        x='40'
+        y='88'
+        width='128'
+        height='128'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='40'
+        y1='120'
+        x2='168'
+        y2='120'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='88'
+        y1='88'
+        x2='88'
+        y2='216'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='200'
+        y1='40'
+        x2='200'
+        y2='104'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+      <line
+        x1='168'
+        y1='72'
+        x2='232'
+        y2='72'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='16'
+      />
+    </svg>
+  ),
   twitter: (props: IconProps) => (
     <svg
       {...props}

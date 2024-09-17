@@ -1,5 +1,3 @@
-"use client";
-
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,10 +7,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import AvatarProvider from "../providers/avatar-provider";
 import Link from "next/link";
-import { BookMarked, LogOut, Settings, User } from "lucide-react";
-import { useTransition } from "react";
-import { signOut } from "next-auth/react";
-import { Icons } from "@/lib/icons";
+import { BookMarked, Settings, User } from "lucide-react";
+import LogoutBtn from "./logout-btn";
 
 const user = {
   fullName: "Harshit Patel",
@@ -20,15 +16,6 @@ const user = {
 };
 
 export default function UserSettingsModal() {
-  const [isPending, startTransition] = useTransition();
-
-  const handleLogout = (e: any) => {
-    e.preventDefault();
-    localStorage.clear();
-    startTransition(async () => {
-      signOut();
-    });
-  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -75,25 +62,7 @@ export default function UserSettingsModal() {
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
-
-        <DropdownMenuItem
-          className='cursor-pointer'
-          style={{ backgroundColor: "crimson", color: "white" }}
-        >
-          <button
-            className='flex justify-center items-center w-full'
-            onClick={handleLogout}
-            disabled={isPending}
-          >
-            {isPending ? (
-              <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
-            ) : (
-              <>
-                <LogOut className='h-4 w-4 mr-1' /> Sign out
-              </>
-            )}
-          </button>
-        </DropdownMenuItem>
+        <LogoutBtn />
       </DropdownMenuContent>
     </DropdownMenu>
   );

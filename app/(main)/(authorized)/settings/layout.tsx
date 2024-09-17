@@ -39,10 +39,13 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
       <div className='md:w-3/4 m-auto space-y-6 p-10 pb-16 md:block'>
         <div className='space-y-0.5'>
           <h2 className='text-2xl font-bold tracking-tight'>Settings</h2>
-          <p className='text-black text-sm'>
+          <p className='text-black text-sm dark:text-white'>
             Edit your personal information such as name, account type etc. here.
             If you want to add experience or education or any skills visit
-            <Link href={"/profile"} className='mx-1 text-muted-foreground'>
+            <Link
+              href={"/profile"}
+              className='mx-1 text-muted-foreground hover:underline'
+            >
               Profile
             </Link>
             page

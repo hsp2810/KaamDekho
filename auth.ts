@@ -2,6 +2,7 @@ import NextAuth, { type DefaultSession } from "next-auth";
 import authConfig from "./auth.config";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/prisma";
+import { UserType } from "@prisma/client";
 
 declare module "next-auth" {
   interface Session {
@@ -12,6 +13,7 @@ declare module "next-auth" {
       image: string | null;
       name: string | null;
       password: string | null;
+      user_type: UserType;
     };
   }
 }
@@ -34,6 +36,7 @@ export const {
         session.user.username = token.username as string;
         session.user.name = token.name as string;
         session.user.password = token.password as string;
+        session.user.user_type = token.user_type as UserType;
       }
 
       return session;
@@ -47,6 +50,7 @@ export const {
       token.username = existingUser.username;
       token.password = existingUser.password;
       token.name = existingUser.name;
+      token.user_type = existingUser.user_type;
       return token;
     },
   },
