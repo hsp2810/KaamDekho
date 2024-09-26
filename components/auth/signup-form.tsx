@@ -15,10 +15,11 @@ import {
 } from "@/components/ui/form";
 import { registerSchema } from "@/lib/validators/auth";
 import { Input } from "@/components/ui/input";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { actionLogin, actionRegister } from "@/actions/auth";
 import { Icons } from "@/lib/icons";
 import FormError from "./form-error";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
@@ -27,17 +28,24 @@ const defaultValues: Partial<RegisterFormValues> = {
   email: "harshit123@gmail.com",
   name: "Harshit Patel",
   password: "password",
+  isAsRecruiter: false,
 };
 
 export default function SignUpForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
+  const [isAsRecruiter, setAsRecruiter] = useState<boolean>(false);
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues,
     mode: "onChange",
   });
+
+  useEffect(() => {
+    console.log("useeffect is running!");
+    setAsRecruiter(form.getValues("isAsRecruiter") ? true : false);
+  }, [form]);
 
   function onSubmit(data: RegisterFormValues) {
     setError("");
@@ -93,6 +101,7 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name='password'
@@ -102,6 +111,42 @@ export default function SignUpForm() {
               <FormControl>
                 <Input type='password' placeholder='********' {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {isAsRecruiter && (
+          <>
+            <FormField
+              control={form.control}
+              name='company'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Microsoft' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </>
+        )}
+
+        <FormField
+          control={form.control}
+          name='isAsRecruiter'
+          render={({ field }) => (
+            <FormItem className='space-y-0 flex items-center gap-1'>
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  onChange={(value) => setAsRecruiter(!value)}
+                />
+              </FormControl>
+              <FormLabel>Register as a recruiter</FormLabel>
               <FormMessage />
             </FormItem>
           )}

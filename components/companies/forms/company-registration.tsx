@@ -1,14 +1,14 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { actionAddCompany } from "@/actions/recruiters/companies";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,10 +24,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
 import { addCompanyFormSchema } from "@/lib/validators/company";
 import { useTransition } from "react";
-import { actionAddCompany } from "@/actions/recruiters/companies";
 
 type AddCompanyFormValues = z.infer<typeof addCompanyFormSchema>;
 

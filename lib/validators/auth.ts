@@ -29,4 +29,10 @@ export const registerSchema = z.object({
     .min(1, "Password is required")
     .min(8, "Password must be more than 8 characters")
     .max(32, "Password must be less than 32 characters"),
+  isAsRecruiter: z.boolean().optional(),
+
+  // if registering as a recruiter, they must have company to add
+  company: z
+    .string({ required_error: "Company name is required" })
+    .min(1, "Company name is required"),
 });

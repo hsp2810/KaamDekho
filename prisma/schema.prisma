@@ -50,7 +50,7 @@ model Company {
 model Job {
   id                String          @id @default(cuid())
   title             String
-  company           Company[]
+  company           Company         @relation(fields: [companyId], references: [id])
   recruiter         User            @relation(fields: [recruiterId], references: [id])
   recruiterId       String
   job_type          JobType
@@ -71,6 +71,7 @@ model Job {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  companyId String
 }
 
 enum UserType {

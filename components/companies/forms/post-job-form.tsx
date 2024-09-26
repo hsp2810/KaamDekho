@@ -28,37 +28,48 @@ import { cn } from "@/lib/utils";
 import { useTransition } from "react";
 import { actionAddCompany } from "@/actions/recruiters/companies";
 import { postJobFormSchema } from "@/lib/validators/job";
+import { actionAddJob } from "@/actions/recruiters/job";
+import { User } from "@prisma/client";
+import { UserWithCompany } from "@/types";
 
 type PostJobFormValues = z.infer<typeof postJobFormSchema>;
 
-const defaultValues: Partial<PostJobFormValues> = {
-  title: "Software Developer",
-  company: "Microsoft",
-  recruiter: "Jow Blow",
-  job_type: "FULL_TIME",
-  job_location_type: "REMOTE",
-  salary_range: "70000-80000",
-  salary_type: "ANNUALLY",
-  location: "Bengaluru, India",
-  description: [
-    {
-      value:
-        "Collaborate with fellow developers to translate product concepts into tangible releases.",
-    },
-  ],
-  skills: [{ value: "TypeScript" }],
-};
-
-export default function PostJobForm() {
+export default function PostJobForm({
+  loggedInUser,
+}: {
+  loggedInUser: UserWithCompany;
+}) {
   const [isPending, startTransition] = useTransition();
   const form = useForm<PostJobFormValues>({
     resolver: zodResolver(postJobFormSchema),
-    defaultValues,
+    defaultValues: {
+      title: "Software Developer",
+      company: loggedInUser.company ? loggedInUser.company.name : "",
+      recruiter: "Jow Blow",
+      job_type: "FULL_TIME",
+      job_location_type: "REMOTE",
+      salary_range: "70000-80000",
+      salary_type: "ANNUALLY",
+      location: "Bengaluru, India",
+      description: [
+        {
+          value:
+            "Collaborate with fellow developers to translate product concepts into tangible releases.",
+        },
+      ],
+      skills: [{ value: "TypeScript" }],
+    },
     mode: "onChange",
   });
 
-  const { fields, append } = useFieldArray({
-    name: "description",
+  const { fields: descriptionFields, append: descriptionAppend } =
+    useFieldArray({
+      name: "description",
+      control: form.control,
+    });
+
+  const { fields: skillsFields, append: skillsAppend } = useFieldArray({
+    name: "skills",
     control: form.control,
   });
 
@@ -69,7 +80,7 @@ export default function PostJobForm() {
           if (!data) throw new Error();
           form.reset();
           toast({
-            title: "Company added successfully. Start postings jobs now...",
+            title: "Job added successfully.",
           });
         });
       });
@@ -235,7 +246,7 @@ export default function PostJobForm() {
         />
 
         <div>
-          {fields.map((field, index) => (
+          {descriptionFields.map((field, index) => (
             <FormField
               control={form.control}
               key={field.id}
@@ -261,7 +272,41 @@ export default function PostJobForm() {
             variant='outline'
             size='sm'
             className='mt-2'
-            onClick={() => append({ value: "" })}
+            onClick={() => descriptionAppend({ value: "" })}
+          >
+            Add more
+          </Button>
+        </div>
+
+        <div>
+          {skillsFields.map((field, index) => (
+            <FormField
+              control={form.control}
+              key={field.id}
+              name={`skills.${index}.value`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={cn(index !== 0 && "sr-only")}>
+                    Skills
+                  </FormLabel>
+                  <FormDescription className={cn(index !== 0 && "sr-only")}>
+                    Add skills one by one.
+                  </FormDescription>
+                  <FormControl>
+                    <Input {...field} className='w-fit inline' />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
+
+          <Button
+            type='button'
+            variant='outline'
+            size='sm'
+            className='mt-2'
+            onClick={() => skillsAppend({ value: "" })}
           >
             Add more
           </Button>
